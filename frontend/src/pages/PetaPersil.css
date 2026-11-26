@@ -1,0 +1,894 @@
+/* =====================================
+   HALAMAN PETA PERSIL LANDWISE
+===================================== */
+
+.peta-page {
+  width: 100%;
+  min-width: 0;
+  color: #26352d;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+.peta-page *,
+.peta-page *::before,
+.peta-page *::after {
+  box-sizing: border-box;
+}
+
+/* =====================================
+   TOOLBAR HALAMAN
+===================================== */
+
+.peta-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e8ede9;
+  border-radius: 12px;
+}
+
+.peta-toolbar label {
+  display: block;
+  margin-bottom: 9px;
+  color: #526258;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.peta-toolbar select {
+  min-width: 220px;
+  padding: 11px 13px;
+  border: 1px solid #dce5de;
+  border-radius: 7px;
+  outline: none;
+  background: #ffffff;
+  color: #26352d;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.peta-toolbar select:focus {
+  border-color: #397b5d;
+}
+
+.peta-status {
+  padding: 9px 13px;
+  border-radius: 20px;
+  background: #fff5df;
+  color: #9a6b1d;
+  font-size: 11px;
+}
+
+/* =====================================
+   AREA PETA
+===================================== */
+
+.peta-map-container {
+  position: relative;
+  width: 100%;
+  height: 620px;
+  min-height: 500px;
+  overflow: hidden;
+  border: 1px solid #e1e8e2;
+  border-radius: 12px;
+  background: #e9eee9;
+}
+
+.landwise-map-layout {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.landwise-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #e9eee9;
+}
+
+.landwise-map .leaflet-container,
+.landwise-leaflet-map {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+/* =====================================
+   KONTROL LAYER LEAFLET
+===================================== */
+
+.landwise-map .leaflet-control-layers {
+  border: 1px solid #e1e8e2;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.97);
+  color: #354c3d;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+}
+
+.landwise-map .leaflet-control-layers-toggle {
+  width: 38px;
+  height: 38px;
+}
+
+.landwise-map .leaflet-control-zoom {
+  overflow: hidden;
+  border: 1px solid #e1e8e2;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.landwise-map .leaflet-control-zoom a {
+  color: #315d49;
+}
+
+/* =====================================
+   TOOLS PETA - KANAN BAWAH
+===================================== */
+
+.landwise-map-tools {
+  position: absolute !important;
+  top: auto !important;
+  left: auto !important;
+  right: 16px !important;
+  bottom: 16px !important;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 230px;
+  max-height: calc(100% - 32px);
+  padding: 15px;
+  overflow-y: auto;
+
+  border: 1px solid #e1e8e2;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.14);
+}
+
+.landwise-map-tools::-webkit-scrollbar {
+  width: 4px;
+}
+
+.landwise-map-tools::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #cbd9ce;
+}
+
+.landwise-tools-title {
+  margin: 0 0 5px;
+  color: #294b37;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.landwise-tool-button {
+  display: block;
+  width: 100%;
+  margin-bottom: 9px;
+  padding: 10px 12px;
+  border: 1px solid #dce8df;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #42634e;
+  text-align: left;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.landwise-tool-button:last-child {
+  margin-bottom: 0;
+}
+
+.landwise-tool-button:hover {
+  border-color: #8caf98;
+  background: #f0f6f1;
+}
+
+.landwise-tool-button.active {
+  border-color: #397b5d;
+  background: #e8f2eb;
+  color: #24553d;
+}
+
+.landwise-tool-button.landwise-tool-finish {
+  border-color: #e8d5b9;
+  background: #fff8ed;
+  color: #98672c;
+}
+
+/* =====================================
+   TRANSPARANSI PERSIL
+===================================== */
+
+.landwise-opacity-control {
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid #edf1ed;
+}
+
+.landwise-opacity-control label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #68786e;
+  font-size: 11px;
+}
+
+.landwise-opacity-control label strong {
+  color: #315d49;
+  font-size: 11px;
+}
+
+.landwise-opacity-control input[type='range'] {
+  width: 100%;
+  height: 5px;
+  accent-color: #397b5d;
+  cursor: pointer;
+}
+
+/* =====================================
+   SISTEM KOORDINAT
+===================================== */
+
+.landwise-crs-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 15px;
+  padding-top: 13px;
+  border-top: 1px solid #edf1ed;
+}
+
+.landwise-crs-info strong {
+  color: #42634e;
+  font-size: 10px;
+}
+
+.landwise-crs-info span {
+  color: #68786e;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.landwise-crs-info small {
+  color: #929c95;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+/* =====================================
+   TOMBOL LOKASI SAYA
+===================================== */
+
+.landwise-locate-button {
+  position: absolute;
+  top: 75px;
+  left: 15px;
+  z-index: 1000;
+  padding: 9px 13px;
+  border: 1px solid #dce7df;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #315d49;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: 0.2s ease;
+}
+
+.landwise-locate-button:hover {
+  border-color: #9bbba5;
+  background: #edf5ef;
+}
+
+/* =====================================
+   LEGENDA PENGGUNAAN TANAH
+===================================== */
+
+.landwise-map-legend {
+  position: absolute;
+  left: 15px;
+  bottom: 20px;
+  z-index: 1000;
+  min-width: 205px;
+  padding: 15px;
+  border: 1px solid #e1e8e2;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+}
+
+.landwise-map-legend h4 {
+  margin: 0 0 12px;
+  color: #294b37;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.landwise-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 9px;
+  color: #536158;
+  font-size: 11px;
+}
+
+.landwise-legend-item:last-child {
+  margin-bottom: 0;
+}
+
+.landwise-legend-color {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+}
+
+/* =====================================
+   HASIL PENGUKURAN
+===================================== */
+
+.landwise-measure-result {
+  position: absolute;
+  top: 15px;
+  right: 65px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 190px;
+  max-width: 260px;
+  padding: 13px 16px;
+  border: 1px solid #e1e8e2;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.landwise-measure-result strong {
+  color: #42634e;
+  font-size: 11px;
+}
+
+.landwise-measure-result span {
+  color: #24553d;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.landwise-measure-result small {
+  color: #89948c;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* =====================================
+   PESAN LOKASI
+===================================== */
+
+.landwise-location-message {
+  position: absolute;
+  right: 15px;
+  bottom: 20px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 320px;
+  padding: 12px 14px;
+  border: 1px solid #dce8df;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #42634e;
+  font-size: 11px;
+  line-height: 1.5;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.landwise-location-message button {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: #64776a;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* =====================================
+   POP-UP INFORMASI PERSIL
+   Untuk popup Leaflet
+===================================== */
+
+.landwise-map .leaflet-popup-content-wrapper {
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #dce8df;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 28px rgba(22, 49, 34, 0.2);
+}
+
+.landwise-map .leaflet-popup-content {
+  width: 320px !important;
+  max-width: calc(100vw - 60px);
+  margin: 0;
+}
+
+.landwise-map .leaflet-popup-tip {
+  background: #ffffff;
+}
+
+.landwise-map .leaflet-popup-close-button {
+  display: none;
+}
+
+.landwise-map .landwise-info-panel {
+  border: none;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+/* =====================================
+   PANEL INFORMASI PERSIL
+===================================== */
+
+.landwise-info-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 420px;
+  min-width: 0;
+  overflow: hidden;
+  border: none;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.landwise-info-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 17px;
+  border-bottom: 1px solid #edf1ed;
+  background: #ffffff;
+}
+
+.landwise-info-eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: #699078;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.landwise-info-header h3 {
+  margin: 0;
+  color: #203c30;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.landwise-info-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 7px;
+  background: #f0f4f0;
+  color: #526258;
+  font-size: 21px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.landwise-info-close:hover {
+  background: #e1ebe3;
+  color: #173f32;
+}
+
+/* EMPTY STATE */
+
+.landwise-info-empty {
+  flex: 1;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.landwise-info-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: #edf4ee;
+  color: #397b5d;
+  font-size: 27px;
+}
+
+.landwise-info-empty h4 {
+  margin: 0 0 8px;
+  color: #294b37;
+  font-size: 13px;
+}
+
+.landwise-info-empty p {
+  max-width: 230px;
+  margin: 0;
+  color: #89948c;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* LOADING */
+
+.landwise-info-status {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #758279;
+  font-size: 11px;
+}
+
+.landwise-info-status p {
+  margin: 0;
+}
+
+.landwise-loading {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #e5eee7;
+  border-top-color: #397b5d;
+  border-radius: 50%;
+  animation: landwise-spin 0.8s linear infinite;
+}
+
+@keyframes landwise-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ERROR */
+
+.landwise-info-error {
+  margin: 15px;
+  padding: 13px;
+  border: 1px solid #f1d7d4;
+  border-radius: 8px;
+  background: #fff6f5;
+}
+
+.landwise-info-error strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #a34d45;
+  font-size: 11px;
+}
+
+.landwise-info-error p {
+  margin: 0;
+  color: #956e69;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+/* DETAIL INFORMATION */
+
+.landwise-info-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 14px 16px;
+}
+
+.landwise-info-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.landwise-info-content::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #cbd9ce;
+}
+
+.landwise-info-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 8px;
+  background: #edf4ee;
+}
+
+.landwise-info-summary span {
+  color: #607568;
+  font-size: 10px;
+}
+
+.landwise-info-summary strong {
+  color: #24553d;
+  font-size: 13px;
+}
+
+.landwise-info-role {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 9px;
+  border-radius: 20px;
+  background: #f2f5f2;
+  color: #567261;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.landwise-info-fields {
+  margin-top: 17px;
+}
+
+.landwise-info-fields h4 {
+  margin: 0 0 9px;
+  color: #294b37;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.landwise-info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 9px 0;
+  border-bottom: 1px solid #edf1ed;
+}
+
+.landwise-info-row span {
+  color: #89948c;
+  font-size: 10px;
+}
+
+.landwise-info-row strong {
+  color: #354c3d;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* =====================================
+   PLACEHOLDER PETA
+===================================== */
+
+.peta-placeholder {
+  min-height: 520px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)),
+    linear-gradient(90deg, #dce6dd 1px, transparent 1px),
+    linear-gradient(#dce6dd 1px, transparent 1px);
+  background-size: auto, 35px 35px, 35px 35px;
+}
+
+.peta-placeholder-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 65px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: #d5e6d9;
+  color: #285d43;
+  font-size: 35px;
+}
+
+.peta-placeholder h2 {
+  margin-bottom: 10px;
+  color: #294b37;
+  font-size: 20px;
+}
+
+.peta-placeholder p {
+  max-width: 400px;
+  color: #758279;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* =====================================
+   INFORMASI HALAMAN
+===================================== */
+
+.peta-information {
+  margin-top: 22px;
+  padding: 22px;
+  border: 1px solid #e8ede9;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.peta-information h3 {
+  margin: 0 0 9px;
+  color: #294b37;
+  font-size: 15px;
+}
+
+.peta-information p {
+  margin: 0;
+  color: #7b8880;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* =====================================
+   RESPONSIVE TABLET
+===================================== */
+
+@media (max-width: 768px) {
+  .peta-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .peta-toolbar select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .peta-map-container {
+    height: 560px;
+    min-height: 500px;
+  }
+
+  .landwise-map-tools {
+    top: auto !important;
+    left: auto !important;
+    right: 10px !important;
+    bottom: 10px !important;
+    width: 205px;
+    padding: 12px;
+  }
+
+  .landwise-map-legend {
+    left: 10px;
+    bottom: 12px;
+    min-width: 175px;
+    padding: 11px;
+  }
+
+  .landwise-measure-result {
+    right: 10px;
+  }
+
+  .landwise-map .leaflet-popup-content {
+    width: 300px !important;
+  }
+}
+
+/* =====================================
+   RESPONSIVE MOBILE
+===================================== */
+
+@media (max-width: 520px) {
+  .peta-map-container {
+    height: 500px;
+    min-height: 500px;
+  }
+
+  .landwise-map-tools {
+    top: auto !important;
+    left: auto !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    width: 185px;
+    max-height: 65%;
+    padding: 10px;
+  }
+
+  .landwise-tools-title {
+    font-size: 10px;
+  }
+
+  .landwise-tool-button {
+    padding: 8px 9px;
+    font-size: 10px;
+  }
+
+  .landwise-crs-info span {
+    font-size: 9px;
+  }
+
+  .landwise-map-legend {
+    min-width: 155px;
+    padding: 9px;
+  }
+
+  .landwise-map-legend h4 {
+    font-size: 10px;
+  }
+
+  .landwise-legend-item {
+    gap: 6px;
+    font-size: 9px;
+  }
+
+  .landwise-legend-color {
+    width: 12px;
+    height: 12px;
+  }
+
+  .landwise-info-panel {
+    max-height: 380px;
+  }
+
+  .landwise-info-content {
+    max-height: 280px;
+  }
+
+  .landwise-map .leaflet-popup-content {
+    width: min(280px, calc(100vw - 60px)) !important;
+  }
+
+  .landwise-measure-result {
+    top: auto;
+    right: 10px;
+    bottom: 12px;
+    min-width: 150px;
+    max-width: 190px;
+  }
+
+  .landwise-location-message {
+    right: 10px;
+    bottom: 10px;
+    max-width: 220px;
+  }
+}

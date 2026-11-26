@@ -1,0 +1,778 @@
+
+/* =====================================
+   HALAMAN DATA PERSIL
+===================================== */
+
+.persil-page {
+  width: 100%;
+  min-height: 100vh;
+  color: #26352d;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+.persil-page * {
+  box-sizing: border-box;
+}
+
+/* =====================================
+   SUMMARY CARD
+===================================== */
+
+.persil-summary {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.persil-summary-card {
+  width: 100%;
+  max-width: 410px;
+  min-height: 125px;
+  padding: 23px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #ffffff;
+  border: 1px solid #e1e8e2;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(30, 60, 42, 0.04);
+}
+
+.persil-summary-card > div:first-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-label {
+  color: #607568;
+  font-size: 13px;
+}
+
+.persil-summary-card h2 {
+  margin: 7px 0 0;
+  color: #24553d;
+  font-size: 29px;
+  font-weight: 800;
+}
+
+.summary-caption {
+  margin-top: 6px;
+  color: #89948c;
+  font-size: 12px;
+}
+
+.summary-icon {
+  width: 55px;
+  height: 55px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #edf4ee;
+  color: #397b5d;
+  font-size: 26px;
+}
+
+/* =====================================
+   CONTENT SECTION
+===================================== */
+
+.persil-content {
+  width: 100%;
+  padding: 23px 25px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e1e8e2;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(30, 60, 42, 0.04);
+}
+
+.persil-content-header {
+  margin-bottom: 20px;
+}
+
+.persil-content-header h2 {
+  margin: 0;
+  color: #294b37;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.persil-content-header p {
+  margin: 7px 0 0;
+  color: #7b8880;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =====================================
+   SEARCH
+===================================== */
+
+.persil-search {
+  width: 100%;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  min-width: 220px;
+  flex: 1;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  transform: translateY(-50%);
+  color: #89948c;
+  font-size: 20px;
+  pointer-events: none;
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  min-height: 39px;
+  padding: 10px 13px 10px 38px;
+  border: 1px solid #dce5de;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #26352d;
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.search-input-wrapper input:focus {
+  border-color: #397b5d;
+  box-shadow: 0 0 0 3px rgba(57, 123, 93, 0.08);
+}
+
+.search-input-wrapper input::placeholder {
+  color: #9aa59d;
+}
+
+.persil-search button {
+  min-height: 39px;
+  padding: 10px 19px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-search {
+  background: #2b604c;
+  color: #ffffff;
+}
+
+.btn-search:hover {
+  background: #173f32;
+}
+
+.btn-reset {
+  background: #edf4ee;
+  color: #397b5d;
+}
+
+.btn-reset:hover {
+  background: #dcebe0;
+}
+
+/* =====================================
+   SEARCH RESULT INFO
+===================================== */
+
+.search-result-info {
+  margin-bottom: 15px;
+  padding: 12px 14px;
+  border: 1px solid #e1e8e2;
+  border-radius: 7px;
+  background: #f7faf7;
+  color: #758279;
+  font-size: 12px;
+}
+
+.search-result-info strong {
+  color: #24553d;
+}
+
+/* =====================================
+   TABLE
+===================================== */
+
+.persil-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e8ede9;
+  border-radius: 8px;
+}
+
+.persil-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.persil-table thead {
+  background: #edf4ee;
+}
+
+.persil-table th {
+  padding: 15px 16px;
+  color: #294b37;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  border-bottom: 1px solid #e1e8e2;
+}
+
+.persil-table td {
+  padding: 15px 16px;
+  color: #536158;
+  font-size: 12px;
+  border-bottom: 1px solid #edf1ed;
+  white-space: nowrap;
+}
+
+.persil-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.persil-row {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.persil-row:hover {
+  background: #f2f8f3;
+}
+
+.persil-id {
+  color: #24553d !important;
+  font-weight: 700;
+}
+
+.table-message {
+  padding: 35px !important;
+  text-align: center;
+  color: #89948c !important;
+  font-size: 13px !important;
+}
+
+.error-message {
+  color: #a34d45 !important;
+}
+
+.btn-detail {
+  padding: 7px 13px;
+  border: 1px solid #dce9df;
+  border-radius: 6px;
+  background: #edf4ee;
+  color: #397b5d;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-detail:hover {
+  border-color: #397b5d;
+  background: #dcebe0;
+}
+
+/* =====================================
+   PAGINATION
+===================================== */
+
+.persil-pagination {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.persil-pagination > span {
+  color: #7b8880;
+  font-size: 12px;
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagination-buttons button {
+  min-height: 34px;
+  padding: 8px 14px;
+  border: 1px solid #dce5de;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #397b5d;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pagination-buttons button:hover:not(:disabled) {
+  border-color: #397b5d;
+  background: #edf4ee;
+}
+
+.pagination-buttons button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =====================================
+   DETAIL MODAL
+===================================== */
+
+.persil-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 35, 25, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.persil-modal {
+  width: 100%;
+  max-width: 620px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  animation: persil-modal-show 0.2s ease-out;
+}
+
+@keyframes persil-modal-show {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* MODAL HEADER */
+
+.persil-modal-header {
+  padding: 22px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid #edf1ed;
+}
+
+.modal-eyebrow {
+  display: block;
+  margin-bottom: 7px;
+  color: #699078;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.persil-modal-header h2 {
+  margin: 0;
+  color: #203c30;
+  font-size: 19px;
+}
+
+.modal-close {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 7px;
+  background: #f0f4f0;
+  color: #526258;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.modal-close:hover {
+  background: #e1ebe3;
+  color: #173f32;
+}
+
+/* MODAL LOADING */
+
+.modal-loading {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #758279;
+  font-size: 13px;
+}
+
+/* MODAL DETAIL */
+
+.persil-detail-grid {
+  padding: 24px 25px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.detail-item {
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid #e8ede9;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.detail-item span {
+  display: block;
+  margin-bottom: 8px;
+  color: #89948c;
+  font-size: 11px;
+}
+
+.detail-item strong {
+  display: block;
+  color: #354c3d;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* MODAL FOOTER */
+
+.persil-modal-footer {
+  padding: 15px 25px 22px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #edf1ed;
+}
+
+.persil-modal-footer button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 7px;
+  background: #2b604c;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.persil-modal-footer button:hover {
+  background: #173f32;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1100px) {
+  .persil-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .persil-summary-card {
+    max-width: 100%;
+  }
+
+  .persil-content {
+    padding: 18px;
+  }
+
+  .persil-search {
+    align-items: stretch;
+  }
+
+  .search-input-wrapper {
+    flex-basis: 100%;
+  }
+
+  .persil-search button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  .persil-content {
+    padding: 14px;
+  }
+
+  .persil-content-header h2 {
+    font-size: 16px;
+  }
+
+  .persil-detail-grid {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .persil-modal-overlay {
+    padding: 12px;
+  }
+
+  .persil-modal {
+    max-height: 90vh;
+  }
+
+  .persil-modal-header {
+    padding: 18px;
+  }
+
+  .persil-pagination {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pagination-buttons {
+    width: 100%;
+  }
+
+  .pagination-buttons button {
+    flex: 1;
+  }
+
+  .persil-modal-footer {
+    padding: 14px 18px 18px;
+  }
+}
+
+
+/* =====================================
+   LANDWISE MAP TOOLS
+===================================== */
+
+.landwise-map-tools {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+  width: 220px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #e1e8e2;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+}
+
+.landwise-tools-title {
+  margin-bottom: 4px;
+  color: #294b37;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.landwise-tool-button {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid #dce7df;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #365a43;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.landwise-tool-button:hover,
+.landwise-tool-button.active {
+  border-color: #397b5d;
+  background: #edf5ef;
+  color: #24553d;
+}
+
+.landwise-tool-finish {
+  border-color: #e5c8a3;
+  background: #fff8ed;
+  color: #98621f;
+}
+
+.landwise-opacity-control {
+  padding-top: 10px;
+  border-top: 1px solid #edf1ed;
+}
+
+.landwise-opacity-control label {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 9px;
+  color: #536158;
+  font-size: 10px;
+}
+
+.landwise-opacity-control label strong {
+  color: #24553d;
+}
+
+.landwise-opacity-control input {
+  width: 100%;
+  accent-color: #397b5d;
+  cursor: pointer;
+}
+
+.landwise-crs-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 10px;
+  border-top: 1px solid #edf1ed;
+}
+
+.landwise-crs-info strong {
+  color: #294b37;
+  font-size: 10px;
+}
+
+.landwise-crs-info span {
+  color: #526258;
+  font-size: 10px;
+}
+
+.landwise-crs-info small {
+  color: #89948c;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.landwise-measure-result {
+  position: absolute;
+  z-index: 1000;
+  top: 15px;
+  left: 250px;
+  min-width: 190px;
+  max-width: 260px;
+  padding: 13px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  border: 1px solid #e1e8e2;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+}
+
+.landwise-measure-result strong {
+  color: #294b37;
+  font-size: 11px;
+}
+
+.landwise-measure-result span {
+  color: #24553d;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.landwise-measure-result small {
+  color: #89948c;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.landwise-location-message {
+  position: absolute;
+  z-index: 1000;
+  right: 15px;
+  bottom: 15px;
+  max-width: 280px;
+  padding: 11px 35px 11px 13px;
+  border: 1px solid #dce7df;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #365a43;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.landwise-location-message button {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  border: none;
+  background: transparent;
+  color: #526258;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .landwise-map-tools {
+    top: 10px;
+    left: 10px;
+    width: 185px;
+    padding: 10px;
+  }
+
+  .landwise-measure-result {
+    top: auto;
+    right: 10px;
+    bottom: 170px;
+    left: auto;
+    min-width: 160px;
+    max-width: 190px;
+  }
+
+  .landwise-location-message {
+    right: 10px;
+    bottom: 10px;
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 520px) {
+  .landwise-map-tools {
+    width: 165px;
+  }
+
+  .landwise-tool-button {
+    padding: 8px;
+    font-size: 10px;
+  }
+
+  .landwise-measure-result {
+    bottom: 150px;
+  }
+}
