@@ -1,13 +1,13 @@
 
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import PetaPersil from './pages/PetaPersil'
 import DataPBB from './pages/DataPBB'
-import DataPersil from "./pages/DataPersil";
+import DataPersil from './pages/DataPersil'
 
 const features = [
   {
@@ -59,7 +59,9 @@ function LandingPage() {
           <a href="#peta">Peta Persil</a>
         </nav>
 
-        <a href="/login" className="login-button">Masuk Akun ↗</a>
+        <Link to="/login" className="login-button">
+          Masuk Akun ↗
+        </Link>
       </header>
 
       <main>
@@ -197,9 +199,9 @@ function LandingPage() {
               Visualisasi spasial membantu pengguna memahami persebaran
               bidang tanah dan informasi terkait berdasarkan lokasi.
             </p>
-            <a href="/peta" className="primary-button">
+            <Link to="/peta" className="primary-button">
               Buka Peta Persil <span>→</span>
-            </a>
+            </Link>
           </div>
 
           <div className="map-preview">
@@ -218,9 +220,9 @@ function LandingPage() {
           <p>
             Mulai jelajahi informasi pertanahan melalui LANDWISE.
           </p>
-          <a href="/login" className="closing-button">
+          <Link to="/login" className="closing-button">
             Masuk ke LANDWISE ↗
-          </a>
+          </Link>
         </section>
       </main>
 
