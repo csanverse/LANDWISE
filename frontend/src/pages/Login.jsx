@@ -11,7 +11,10 @@ import {
 import { auth } from '../firebase'
 import './Login.css'
 
-const API_BASE_URL = 'http://127.0.0.1:8000'
+const API_BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL ||
+  'https://attribute-issued-salvador-pmc.trycloudflare.com'
+).replace(/\/$/, '')
 
 function Login() {
   const navigate = useNavigate()
@@ -40,7 +43,7 @@ function Login() {
 
       const user = result.user
 
-      // 2. Pastikan email sudah diverifikasi
+      // 2. Pastikan email sudah terverifikasi
       if (!user.emailVerified) {
         await sendEmailVerification(user)
         await signOut(auth)
@@ -75,30 +78,32 @@ function Login() {
         )
       }
 
-      // 5. Simpan token dan profil pengguna
+      // 5. Ambil profil pengguna dari respons backend
+      const profile = syncData.user || syncData
+
+      // 6. Simpan token dan profil pengguna
       localStorage.setItem('landwise_token', token)
 
       localStorage.setItem(
         'landwise_user',
         JSON.stringify({
-          ...syncData,
+          ...profile,
           uid: user.uid,
           email: user.email,
           displayName:
-            syncData.nama_lengkap ||
+            profile.nama_lengkap ||
             user.displayName ||
-            '',
+            user.email,
           isAnonymous: false,
         })
       )
 
-      // 6. Arahkan pengguna ke Dashboard
+      // 7. Arahkan pengguna ke Dashboard
       navigate('/dashboard')
 
     } catch (err) {
       console.error('Login error:', err)
 
-      // Bersihkan data lokal jika proses login/sinkronisasi gagal
       localStorage.removeItem('landwise_token')
       localStorage.removeItem('landwise_user')
 
@@ -119,8 +124,6 @@ function Login() {
         'Login gagal. Silakan coba kembali.'
       )
 
-      // Jika Firebase sudah login tetapi sinkronisasi gagal,
-      // keluarkan pengguna agar tidak berada dalam kondisi setengah login.
       if (auth.currentUser) {
         await signOut(auth).catch((signOutError) => {
           console.error('Sign out error:', signOutError)

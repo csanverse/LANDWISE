@@ -1,6 +1,7 @@
 
 const API_BASE_URL = (
-  import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
+  import.meta.env.VITE_API_BASE_URL ||
+  'https://attribute-issued-salvador-pmc.trycloudflare.com'
 ).replace(/\/$/, '')
 
 // Membaca respons API dengan penanganan error
@@ -24,52 +25,65 @@ async function handleResponse(response, fallbackMessage) {
   return result
 }
 
-// Login pengguna
+// Membuat request API
+async function apiRequest(endpoint, options = {}, fallbackMessage = 'Terjadi kesalahan pada server.') {
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      ...(options.headers || {}),
+    },
+  })
+
+  return handleResponse(response, fallbackMessage)
+}
+
+// Login pengguna (endpoint lama)
 export async function loginUser(username, password) {
   const formData = new URLSearchParams()
   formData.append('username', username)
   formData.append('password', password)
 
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+  return apiRequest(
+    '/auth/login',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: formData,
     },
-    body: formData,
-  })
-
-  return handleResponse(
-    response,
     'Login gagal. Periksa koneksi, username, dan kata sandi.'
   )
 }
 
 // Mengambil profil pengguna
 export async function getCurrentUser(token) {
-  const response = await fetch(`${API_BASE_URL}/auth/me`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
+  return apiRequest(
+    '/auth/me',
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  })
-
-  return handleResponse(response, 'Gagal mengambil data pengguna.')
+    'Gagal mengambil data pengguna.'
+  )
 }
 
 // Mengambil statistik dashboard
 export async function getDashboardStatistics(token) {
-  const response = await fetch(`${API_BASE_URL}/dashboard/statistics`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
+  return apiRequest(
+    '/dashboard/statistics',
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  })
-
-  return handleResponse(response, 'Gagal mengambil statistik dashboard.')
+    'Gagal mengambil statistik dashboard.'
+  )
 }
 
 // Mengambil informasi persil dari GeoServer melalui backend
-export async function getMapFeatureInfo({ bbox, width, height, x, y }) {
+export async function getMapFeatureInfo({ bbox, width, height, x, y }, token = '') {
   const params = new URLSearchParams({
     bbox,
     width: String(width),
@@ -78,39 +92,35 @@ export async function getMapFeatureInfo({ bbox, width, height, x, y }) {
     y: String(y),
   })
 
-  const response = await fetch(
-    `${API_BASE_URL}/map/feature-info?${params.toString()}`
-  )
-
-  return handleResponse(
-    response,
+  return apiRequest(
+    `/map/feature-info?${params.toString()}`,
+    {
+      headers: token
+        ? { Authorization: `Bearer ${token}` }
+        : {},
+    },
     'Gagal mengambil informasi bidang tanah.'
   )
 }
 
 // Mengambil detail persil publik
 export async function getPublicPersilDetail(persilId) {
-  const response = await fetch(`${API_BASE_URL}/persil/${persilId}`)
-
-  return handleResponse(
-    response,
+  return apiRequest(
+    `/persil/${persilId}`,
+    {},
     'Gagal mengambil detail persil publik.'
   )
 }
 
 // Mengambil detail persil pemerintah
 export async function getGovernmentPersilDetail(persilId, token) {
-  const response = await fetch(
-    `${API_BASE_URL}/government/persil/${persilId}`,
+  return apiRequest(
+    `/government/persil/${persilId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
-  )
-
-  return handleResponse(
-    response,
+    },
     'Gagal mengambil detail persil pemerintah.'
   )
 }
@@ -128,14 +138,13 @@ export async function getRegisteredPBB(
     keyword,
   })
 
-  const response = await fetch(
-    `${API_BASE_URL}/pbb?${params.toString()}`,
+  return apiRequest(
+    `/pbb?${params.toString()}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
+    'Gagal mengambil data PBB.'
   )
-
-  return handleResponse(response, 'Gagal mengambil data PBB.')
 }

@@ -3,7 +3,27 @@ import { useEffect, useState } from 'react'
 import './DataPersil.css'
 import DashboardLayout from '../components/DashboardLayout'
 
-const API_URL = 'http://127.0.0.1:8000'
+const API_URL = (
+  import.meta.env.VITE_API_BASE_URL ||
+  'https://attribute-issued-salvador-pmc.trycloudflare.com'
+).replace(/\/$/, '')
+
+async function apiFetch(endpoint) {
+  const token = localStorage.getItem('landwise_token')
+
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  })
+
+  if (!response.ok) {
+    const result = await response.json().catch(() => ({}))
+    throw new Error(result.detail || `Request gagal (${response.status})`)
+  }
+
+  return response.json()
+}
 
 function formatNumber(value) {
   if (value === null || value === undefined || value === '') return '-'
@@ -29,55 +49,61 @@ function DataPersil() {
   const [detailLoading, setDetailLoading] = useState(false)
 
   useEffect(() => {
+    async function loadTotalPersil() {
+      try {
+        const result = await apiFetch('/persil/count')
+        setTotalPersil(result.total_persil ?? 0)
+      } catch (err) {
+        console.error('Total persil error:', err)
+      }
+    }
+
     loadTotalPersil()
   }, [])
 
   useEffect(() => {
-    loadPersil()
-  }, [currentPage, keyword])
+    let active = true
 
-  async function loadTotalPersil() {
-    try {
-      const response = await fetch(`${API_URL}/persil/count`)
-      if (!response.ok) throw new Error('Gagal mengambil jumlah persil')
+    async function loadPersil() {
+      setLoading(true)
+      setError('')
 
-      const result = await response.json()
-      setTotalPersil(result.total_persil ?? 0)
-    } catch (err) {
-      console.error(err)
-    }
-  }
+      try {
+        const endpoint = keyword
+          ? `/persil/search?keyword=${encodeURIComponent(keyword)}&limit=10`
+          : `/persil/page?page=${currentPage}&per_page=10`
 
-  async function loadPersil() {
-    setLoading(true)
-    setError('')
+        const result = await apiFetch(endpoint)
 
-    try {
-      const endpoint = keyword
-        ? `${API_URL}/persil/search?keyword=${encodeURIComponent(keyword)}&limit=10`
-        : `${API_URL}/persil/page?page=${currentPage}&per_page=10`
+        if (!active) return
 
-      const response = await fetch(endpoint)
-      if (!response.ok) throw new Error('Gagal mengambil data persil')
+        if (keyword) {
+          setPersil(Array.isArray(result.data) ? result.data : [])
+          setTotalPages(1)
+        } else {
+          setPersil(Array.isArray(result.data) ? result.data : [])
+          setTotalPages(result.total_pages ?? 1)
+        }
+      } catch (err) {
+        console.error('Load persil error:', err)
 
-      const result = await response.json()
-
-      if (keyword) {
-        const data = Array.isArray(result.data) ? result.data : []
-        setPersil(data)
-        setTotalPages(1)
-      } else {
-        setPersil(result.data ?? [])
-        setTotalPages(result.total_pages ?? 1)
+        if (active) {
+          setPersil([])
+          setError(
+            err.message || 'Data persil gagal dimuat. Pastikan backend LANDWISE aktif.'
+          )
+        }
+      } finally {
+        if (active) setLoading(false)
       }
-    } catch (err) {
-      console.error(err)
-      setPersil([])
-      setError('Data persil gagal dimuat. Pastikan backend LANDWISE aktif.')
-    } finally {
-      setLoading(false)
     }
-  }
+
+    loadPersil()
+
+    return () => {
+      active = false
+    }
+  }, [currentPage, keyword])
 
   function handleSearch(event) {
     event.preventDefault()
@@ -96,14 +122,11 @@ function DataPersil() {
     setSelectedPersil(null)
 
     try {
-      const response = await fetch(`${API_URL}/persil/${persilId}`)
-      if (!response.ok) throw new Error('Gagal mengambil detail persil')
-
-      const result = await response.json()
+      const result = await apiFetch(`/persil/${persilId}`)
       setSelectedPersil(result.data ?? result)
     } catch (err) {
-      console.error(err)
-      alert('Detail persil gagal dimuat.')
+      console.error('Detail persil error:', err)
+      alert('Detail persil gagal dimuat: ' + err.message)
     } finally {
       setDetailLoading(false)
     }
@@ -111,6 +134,7 @@ function DataPersil() {
 
   function closeDetail() {
     setSelectedPersil(null)
+    setDetailLoading(false)
   }
 
   useEffect(() => {
@@ -143,7 +167,9 @@ function DataPersil() {
           <div className="persil-content-header">
             <div>
               <h2>Daftar Data Persil</h2>
-              <p>Informasi bidang tanah yang tersimpan dalam basis data LANDWISE.</p>
+              <p>
+                Informasi bidang tanah yang tersimpan dalam basis data LANDWISE.
+              </p>
             </div>
           </div>
 
@@ -217,7 +243,11 @@ function DataPersil() {
                       onClick={() => openDetail(item.id)}
                       className="persil-row"
                     >
-                      <td>{keyword ? index + 1 : (currentPage - 1) * 10 + index + 1}</td>
+                      <td>
+                        {keyword
+                          ? index + 1
+                          : (currentPage - 1) * 10 + index + 1}
+                      </td>
                       <td className="persil-id">{item.id}</td>
                       <td>{formatNumber(item.luas_tanah)} m²</td>
                       <td>{item.kode_zona || '-'}</td>
@@ -290,7 +320,9 @@ function DataPersil() {
               </div>
 
               {detailLoading ? (
-                <div className="modal-loading">Memuat detail persil...</div>
+                <div className="modal-loading">
+                  Memuat detail persil...
+                </div>
               ) : (
                 <div className="persil-detail-grid">
                   <div className="detail-item">
@@ -299,7 +331,9 @@ function DataPersil() {
                   </div>
                   <div className="detail-item">
                     <span>Luas Tanah</span>
-                    <strong>{formatNumber(selectedPersil?.luas_tanah)} m²</strong>
+                    <strong>
+                      {formatNumber(selectedPersil?.luas_tanah)} m²
+                    </strong>
                   </div>
                   <div className="detail-item">
                     <span>Kode Zona</span>
@@ -307,11 +341,15 @@ function DataPersil() {
                   </div>
                   <div className="detail-item">
                     <span>Penggunaan Tanah</span>
-                    <strong>{selectedPersil?.penggunaan_tanah || '-'}</strong>
+                    <strong>
+                      {selectedPersil?.penggunaan_tanah || '-'}
+                    </strong>
                   </div>
                   <div className="detail-item">
                     <span>Penggunaan Bangunan</span>
-                    <strong>{selectedPersil?.penggunaan_bangunan || '-'}</strong>
+                    <strong>
+                      {selectedPersil?.penggunaan_bangunan || '-'}
+                    </strong>
                   </div>
                 </div>
               )}

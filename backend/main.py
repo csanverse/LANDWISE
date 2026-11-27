@@ -52,6 +52,7 @@ app = FastAPI(
     version="2.0.0"
 )
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -60,11 +61,12 @@ app.add_middleware(
         "http://localhost:5175",
         "http://127.0.0.1:5175",
         "https://landwise-76583.web.app",
-        "https://landwise-76583.firebaseapp.com"
+        "https://landwise-76583.firebaseapp.com",
+        "https://csanverse.github.io",
     ],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
 bearer_scheme = HTTPBearer(auto_error=False)

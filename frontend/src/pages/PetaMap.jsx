@@ -24,7 +24,7 @@ import {
   getGovernmentPersilDetail,
 } from '../api'
 
-const GEOSERVER_WMS = 'http://localhost:8080/geoserver/landwise/wms'
+const GEOSERVER_WMS = 'https://beneath-until-behavior-happens.trycloudflare.com/geoserver/landwise/wms'
 const WMS_LAYER = 'landwise:v_persil_publik'
 
 const LEGEND_ITEMS = [
