@@ -85,12 +85,12 @@ function Dashboard() {
   const user = storedUser.user || storedUser
 
   const userName =
-  user.nama_lengkap ||
-  user.nama ||
-  user.name ||
-  user.username ||
-  user.displayName ||
-  'Pengguna'
+    user.nama_lengkap ||
+    user.nama ||
+    user.name ||
+    user.username ||
+    user.displayName ||
+    'Pengguna'
 
   const userRole =
     user.role || user.nama_peran || user.peran || 'Pengguna'
@@ -110,7 +110,7 @@ function Dashboard() {
         <h2>Dashboard tidak dapat dimuat</h2>
         <p>{error}</p>
         <button onClick={() => window.location.reload()}>
-          Coba Lagi
+          Coba lagi
         </button>
       </div>
     )
@@ -132,19 +132,19 @@ function Dashboard() {
         <div className="sidebar-section">
           <span className="sidebar-heading">MENU UTAMA</span>
 
-          <a href="/dashboard" className="sidebar-link active">
+          <a href="/LANDWISE/dashboard" className="sidebar-link active">
             <span>▦</span> Dashboard
           </a>
 
-          <a href="/peta" className="sidebar-link">
+          <a href="/LANDWISE/peta" className="sidebar-link">
             <span>⌖</span> Peta Persil
           </a>
 
-          <a href="/data-persil" className="sidebar-link">
+          <a href="/LANDWISE/data-persil" className="sidebar-link">
             <span>▤</span> Data Pertanahan
           </a>
 
-          <a href="/data-pbb" className="sidebar-link">
+          <a href="/LANDWISE/data-pbb" className="sidebar-link">
             <span>▣</span> Informasi PBB
           </a>
         </div>
@@ -152,7 +152,7 @@ function Dashboard() {
         <div className="sidebar-section">
           <span className="sidebar-heading">LAINNYA</span>
 
-          <a href="/profil" className="sidebar-link">
+          <a href="/LANDWISE/profil" className="sidebar-link">
             <span>♙</span> Profil Pengguna
           </a>
         </div>
@@ -171,7 +171,7 @@ function Dashboard() {
             onClick={() => {
               localStorage.removeItem('landwise_token')
               localStorage.removeItem('landwise_user')
-              window.location.href = '/login'
+              window.location.href = '/LANDWISE/login'
             }}
           >
             ↪ Keluar
