@@ -199,6 +199,7 @@ function LandingPage() {
               Visualisasi spasial membantu pengguna memahami persebaran
               bidang tanah dan informasi terkait berdasarkan lokasi.
             </p>
+
             <Link to="/peta" className="primary-button">
               Buka Peta Persil <span>→</span>
             </Link>
@@ -220,6 +221,7 @@ function LandingPage() {
           <p>
             Mulai jelajahi informasi pertanahan melalui LANDWISE.
           </p>
+
           <Link to="/login" className="closing-button">
             Masuk ke LANDWISE ↗
           </Link>
@@ -234,6 +236,7 @@ function LandingPage() {
             <small>Land Information System</small>
           </span>
         </a>
+
         <p>
           Land Information and Spatial Web System
           <br />
@@ -252,8 +255,8 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/peta" element={<PetaPersil />} />
-      <Route path="/data-pbb" element={<DataPBB />} />
       <Route path="/data-persil" element={<DataPersil />} />
+      <Route path="/data-pbb" element={<DataPBB />} />
     </Routes>
   )
 }
